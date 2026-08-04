@@ -32,6 +32,15 @@ class TestOneSample:
         assert_almost_equal(stat, obs_stat, decimal=3)
         assert_almost_equal(p, obs_p, decimal=3)
 
+    @pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
+    def test_dtypes(self, dtype):
+        x = np.concatenate((np.zeros((50, 2)), np.ones((50, 2))), axis=0).astype(dtype)
+        y = np.concatenate((np.zeros(50), np.ones(50)), axis=0).astype(dtype)
+        stat, p, _ = DiscrimOneSample().test(x, y, reps=10)
+        assert_almost_equal(stat, 1.0, decimal=3)
+
+
+
 
 class TestOneSampleWarn:
     """Tests errors and warnings derived from one sample test."""

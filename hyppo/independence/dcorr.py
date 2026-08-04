@@ -1,7 +1,8 @@
 import numpy as np
 from numba import jit
 
-from ..tools import check_perm_blocks_dim, chi2_approx, compute_dist
+from ..tools import check_perm_blocks_dim, chi2_approx, compute_dist, convert_xy_float64
+
 from ._utils import _CheckInputs
 from .base import IndependenceTest, IndependenceTestOutput
 
@@ -138,8 +139,10 @@ class Dcorr(IndependenceTest):
         stat : float
             The computed Dcorr statistic.
         """
+        x, y = convert_xy_float64(x, y)
         distx = x
         disty = y
+
 
         if not (self.is_distance or self.is_fast):
             distx, disty = compute_dist(
@@ -302,15 +305,18 @@ def _fast_1d_dcov(x, y, bias=False):  # pragma: no cover
 
     # sort inputs
     x_orig = x.ravel()
+    y_orig = y.ravel()
     x = np.sort(x_orig)
-    y = y[np.argsort(x_orig)]
+    y = y_orig[np.argsort(x_orig)]
     x = x.reshape(-1, 1)  # for numba
+    y_col = y.reshape(-1, 1)
 
     # cumulative sum
     si = _cpu_cumsum(x)
     ax = (np.arange(-(n - 2), n + 1, 2) * x.ravel()).reshape(-1, 1) + (si[-1] - 2 * si)
 
-    v = np.hstack((x, y, x * y))
+    v = np.hstack((x, y_col, x * y_col))
+
     nw = v.shape[1]
 
     idx = np.vstack((np.arange(n), np.zeros(n))).astype(np.int64).T
@@ -370,7 +376,8 @@ def _fast_1d_dcov(x, y, bias=False):  # pragma: no cover
     c4 = np.sum(iv3.T @ x)
     d = 4 * ((c1 + c2) - (c3 + c4)) - 2 * covterm
 
-    y_sorted = y[idx[n::-1, r], :]
+    y_sorted = y_col[idx[n::-1, r], :]
+
     si = _cpu_cumsum(y_sorted)
     by = np.zeros((n, 1))
     by[idx[::-1, r]] = (np.arange(-(n - 2), n + 1, 2) * y_sorted.ravel()).reshape(

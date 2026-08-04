@@ -45,6 +45,17 @@ class TestKSample:
         assert stat == stat2
         assert pvalue == pvalue2
 
+    @pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
+    def test_dtypes(self, dtype):
+        np.random.seed(123456789)
+        inputs = rot_ksamp("linear", 100, 1, k=2)
+        inputs_cast = [mat.astype(dtype) for mat in inputs]
+        stat, _ = KSample("Dcorr").test(*inputs_cast, reps=0)
+        assert_almost_equal(stat, 0.045646974150778084, decimal=1)
+
+
+
+
 
 class TestKSampleErrorWarn:
     """Tests errors and warnings derived from MGC."""

@@ -36,6 +36,17 @@ class TestDcorrStat:
 
         assert_almost_equal(stat, 0.762676242417, decimal=2)
 
+    @pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
+    def test_dtypes(self, dtype):
+        np.random.seed(123456789)
+        x, y = linear(100, 1)
+        x_cast = (x * 100).astype(dtype)
+        y_cast = (y * 100).astype(dtype)
+        stat = Dcorr().statistic(x_cast, y_cast)
+        assert_almost_equal(stat, 1.0, decimal=2)
+
+
+
 
 class TestDcorrTypeIError:
     def test_oned(self):

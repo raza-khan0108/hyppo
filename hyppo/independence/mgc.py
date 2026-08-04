@@ -4,7 +4,8 @@ from typing import NamedTuple
 import numpy as np
 from scipy.stats import multiscale_graphcorr
 
-from ..tools import compute_dist
+from ..tools import compute_dist, convert_xy_float64
+
 from ._utils import _CheckInputs
 from .base import IndependenceTest
 
@@ -148,8 +149,10 @@ class MGC(IndependenceTest):
         stat : float
             The computed MGC statistic.
         """
+        x, y = convert_xy_float64(x, y)
         distx = x
         disty = y
+
 
         if not self.is_distance:
             distx, disty = compute_dist(

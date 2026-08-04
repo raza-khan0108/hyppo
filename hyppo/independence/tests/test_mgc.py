@@ -68,6 +68,17 @@ class TestMGCStat(object):
         assert stat1 == stat2
         assert pvalue1 == pvalue2
 
+    @pytest.mark.parametrize("dtype", [np.float32, np.float64, np.int32, np.int64])
+    def test_dtypes(self, dtype):
+        np.random.seed(12345678)
+        x, y = linear(n=100, p=1)
+        x_cast = (x * 100).astype(dtype)
+        y_cast = (y * 100).astype(dtype)
+        stat = MGC().statistic(x_cast, y_cast)
+        assert_approx_equal(stat, 0.97, significant=1)
+
+
+
 
 class TestMGCTypeIError:
     def test_oned(self):

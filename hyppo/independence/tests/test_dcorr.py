@@ -46,8 +46,6 @@ class TestDcorrStat:
         assert_almost_equal(stat, 1.0, decimal=2)
 
 
-
-
 class TestDcorrTypeIError:
     def test_oned(self):
         np.random.seed(123456789)

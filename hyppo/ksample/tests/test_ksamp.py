@@ -54,9 +54,6 @@ class TestKSample:
         assert_almost_equal(stat, 0.045646974150778084, decimal=1)
 
 
-
-
-
 class TestKSampleErrorWarn:
     """Tests errors and warnings derived from MGC."""
 

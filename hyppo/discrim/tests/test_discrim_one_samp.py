@@ -40,8 +40,6 @@ class TestOneSample:
         assert_almost_equal(stat, 1.0, decimal=3)
 
 
-
-
 class TestOneSampleWarn:
     """Tests errors and warnings derived from one sample test."""
 

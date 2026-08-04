@@ -139,10 +139,12 @@ class Dcorr(IndependenceTest):
         stat : float
             The computed Dcorr statistic.
         """
-        x, y = convert_xy_float64(x, y)
-        distx = x
-        disty = y
-
+        x_arr = np.asarray(x)
+        y_arr = np.asarray(y)
+        if x_arr.dtype != np.float64 or y_arr.dtype != np.float64:
+            x_arr, y_arr = convert_xy_float64(x_arr, y_arr)
+        distx = x_arr
+        disty = y_arr
 
         if not (self.is_distance or self.is_fast):
             distx, disty = compute_dist(

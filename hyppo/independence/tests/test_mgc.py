@@ -78,8 +78,6 @@ class TestMGCStat(object):
         assert_approx_equal(stat, 0.97, significant=1)
 
 
-
-
 class TestMGCTypeIError:
     def test_oned(self):
         np.random.seed(123456789)

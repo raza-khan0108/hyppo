@@ -86,7 +86,7 @@ class LinearKSTKernel(ABC):
 
     @abstractmethod
     def pair_gradXY_sum(self, X, Y):
-        """
+        r"""
         Compute \sum_{i=1}^d \frac{\partial^2 k(X, Y)}{\partial x_i \partial y_i}
         evaluated at each x_i in X, and y_i in Y.
         X: n x d numpy array.
@@ -125,7 +125,7 @@ class KSTKernel(ABC):
 
     @abstractmethod
     def gradXY_sum(self, X, Y):
-        """
+        r"""
         Compute \sum_{i=1}^d \frac{\partial^2 k(x, Y)}{\partial x_i \partial y_i}
         evaluated at each x_i in X, and y_i in Y.
         X: nx x d numpy array.
@@ -260,7 +260,7 @@ class KGauss(DifferentiableKernel, KSTKernel, LinearKSTKernel):
         return G
 
     def pair_gradXY_sum(self, X, Y):
-        """
+        r"""
         Compute \sum_{i=1}^d \frac{\partial^2 k(X, Y)}{\partial x_i \partial y_i}
         evaluated at each x_i in X, and y_i in Y.
         X: n x d numpy array.

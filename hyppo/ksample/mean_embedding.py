@@ -166,8 +166,8 @@ def mean_embed_distance(difference, num_randfeatures):
     mu = np.mean(difference, 0)
 
     if num_randfeatures == 1:
-        stat = float(num_samples * mu**2) / float(sigma)
+        stat = float(num_samples * mu.item() ** 2 / sigma.item())
     else:
-        stat = num_samples * mu.dot(np.linalg.solve(sigma, np.transpose(mu)))
+        stat = float(num_samples * mu.dot(np.linalg.solve(sigma, np.transpose(mu))))
 
     return stat

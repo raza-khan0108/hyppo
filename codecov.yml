@@ -19,9 +19,9 @@ coverage:
 # --------------
 # which folders/files to ignore
 ignore:
-  - *tests*
-  - *__init__.py
-  - *hyppo/_utils.py
+  - "*tests*"
+  - "*__init__.py"
+  - "*hyppo/_utils.py"
 
 # Pull request comments:
 # ----------------------

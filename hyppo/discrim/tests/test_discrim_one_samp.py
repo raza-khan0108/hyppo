@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from numpy.testing import assert_almost_equal, assert_raises, assert_warns
+from numpy.testing import assert_almost_equal, assert_raises
 
 from .. import DiscrimOneSample
 

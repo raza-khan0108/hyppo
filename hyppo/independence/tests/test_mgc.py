@@ -3,11 +3,10 @@ import pytest
 from numpy.testing import (
     assert_almost_equal,
     assert_approx_equal,
-    assert_equal,
     assert_warns,
 )
 
-from ...tools import linear, multimodal_independence, power, spiral
+from ...tools import linear, power, spiral
 from .. import MGC
 
 

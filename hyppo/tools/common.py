@@ -171,20 +171,26 @@ def check_ndarray_or_dataframe(data, col_id):
 
 def convert_xy_float64(x, y):
     """Convert x or y to np.float64 (if not already done)"""
-    # convert x and y to floats
-    x = np.asarray(x).astype(np.float64)
-    y = np.asarray(y).astype(np.float64)
-
+    x = np.asarray(x)
+    y = np.asarray(y)
+    if x.dtype != np.float64:
+        x = x.astype(np.float64)
+    if y.dtype != np.float64:
+        y = y.astype(np.float64)
     return x, y
 
 
 def convert_xyz_float64(x, y, z):
     """Convert x or y or z to np.float64 (if not already done)"""
-    # convert x and y to floats
-    x = np.asarray(x).astype(np.float64)
-    y = np.asarray(y).astype(np.float64)
-    z = np.asarray(z).astype(np.float64)
-
+    x = np.asarray(x)
+    y = np.asarray(y)
+    z = np.asarray(z)
+    if x.dtype != np.float64:
+        x = x.astype(np.float64)
+    if y.dtype != np.float64:
+        y = y.astype(np.float64)
+    if z.dtype != np.float64:
+        z = z.astype(np.float64)
     return x, y, z
 
 

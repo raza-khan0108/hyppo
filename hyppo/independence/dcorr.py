@@ -139,7 +139,11 @@ class Dcorr(IndependenceTest):
         stat : float
             The computed Dcorr statistic.
         """
-        x, y = convert_xy_float64(x, y)
+        # Only convert dtype when inputs are raw data, not precomputed distance
+        # matrices. Distance matrices produced by compute_dist are already float64;
+        # converting them on every permutation call causes large unnecessary copies.
+        if not (self.is_distance or self.is_fast):
+            x, y = convert_xy_float64(x, y)
         distx = x
         disty = y
 

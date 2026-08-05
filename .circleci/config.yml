@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.2
-  codecov: codecov/codecov@5.2.1
 
 jobs:
   build-and-test:
@@ -25,9 +24,11 @@ jobs:
           path: test-results
       - store_artifacts:
           path: test-results
-      - codecov/upload:
-          files: "coverage.xml"
-          skip_validation: true
+      - run:
+          name: Upload to Codecov
+          command: |
+            pip install codecov-cli
+            codecovcli upload-coverage --file coverage.xml
 
 workflows:
   run-tests:

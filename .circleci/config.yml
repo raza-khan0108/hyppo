@@ -27,6 +27,7 @@ jobs:
           path: test-results
       - codecov/upload:
           files: "coverage.xml"
+          skip_validation: true
 
 workflows:
   run-tests:
